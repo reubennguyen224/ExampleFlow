@@ -1,5 +1,6 @@
 package com.demoapp.myapplication
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -8,11 +9,11 @@ import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class LoginViewModel: ViewModel() {
-    val uiState = sharedEventFlow<Boolean>()
+    val uiEvent = sharedEventFlow<LoginUIEvent>()
 
     fun checkLogin(userName: String, password: String){
         viewModelScope.launch(Dispatchers.IO){
-            uiState.emit(true)
+            uiEvent.emit(LoginUIEvent.LoginSuccess)
         }
     }
 }
@@ -20,6 +21,9 @@ class LoginViewModel: ViewModel() {
 data class LoginUIState(
     val isLoginSuccess: Boolean = false,
 )
+sealed class LoginUIEvent {
+    object LoginSuccess: LoginUIEvent()
+}
 
 @Suppress("UNCHECKED_CAST")
 class LoginViewModelFactory(): ViewModelProvider.Factory {

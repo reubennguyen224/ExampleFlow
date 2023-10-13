@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(ItemListFragment(), R.id.container, true)
+        replaceFragment(LoginFragment(), R.id.container, true)
 
 
         //flow
